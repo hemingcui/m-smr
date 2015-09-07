@@ -1,61 +1,65 @@
-# explauncher
-Experiment launcher for general distributed applications
+# The evaluation and benchmarking scripts for crane
 
-A brief introduction for each component of the experiment launcher.
+@author: tianyu chen
 
-1. run.sh
-This file is aiming at generating all the configuration parameters and
-feed them to the following scripts.
+## What evaluation have we done?
 
-2. master.py
-This file starts all remote scripts on the server. The remote scripts
-on the server will start proxies and server applications on each server 
-machine.
+1. Benchmark performance for apache, clamav, mediatomb and mongoose using 5 plans. We use apache benchmark and clam benchmark.   
+2. Checkpoint-restore performance test for apache, clamav, mediatomb, mongoose and mysql. Performance data includes time of checking point filesystem and process (using criu) and restoring them.   
+3. Sensitivity data of sched_with_paxos_usleep and sched_with_paxos_max/min.   
+4. Leader-election performance.   
 
-3. worker-run.py
-This is the remote script that will be put on the remote server. 
-It starts the proxies and server applications. 
+## How to run all these evaluation?
 
-How can I use the script:
+### For 1. 
 
-1. The current scenario is in order to use these scripts, you need to have 4
-machines. 1 serves as client, 3 serve as servers. My scripts will need to be
-started on this client machines and all the configurations are only need to 
-change on this client machine.
+Just run `$MSMR_ROOT/eval-container/run-all.sh` and get your results in the `perf_log` dir. 
 
-2. The only thing you need to change is in each configs/${server_name}.sh file, 
-change the path of MSMR_ROOT according to the path on your client machine and 
-server machines.
-For example, right now, I've created symbolic links to make sure all my MSMR_ROOT
-folder on different servers will have the same path. 
+Use `grab.py -b perf_log` to generate a detailed report of your run.
 
-3. In eval-multiMachine folder, run the following to start all the expriment.
-> ./run.sh
+You can config the servers and plans in the `run-all.sh` script. 
 
+## For 2.
 
-Notice:
+First, start a server in lxc using `$MSMR_ROOT/eval-container/start-mg.sh`, say:
 
-1. In run.sh, change the parameters listed in the beginning. It's highly
-suggested that the paths across all servers are consistent. For example,
-create a symbolic link in the home folder to MSMR_ROOT will do.
+```bash
+./start-mg.sh httpd "$MSMR_ROOT/apps/apache/install/bin/apachectl -f $MSMR_ROOT/apps/apache/install/conf/httpd.conf -k start"
+```
 
-2. There are many default assumptions. For example, I've assumed that all the
-applications will run on bug03, bug01 and bug02. Bug03 will be the default
-leader. If you want to change the rolls of remote server, first change it in hostfile.
-Then change the head, worker1, worker2 file.
+Then run:
 
-3. The current scripts enable the demo of leader election. To disable it, simply
-comment the corresponding code in master.py which right after the comment "Starts
-leader election demo". Don't comment kill_previous_process.
+```bash
+./checkpoint-restore.sh checkpoint httpd ./checkpoint
+```
 
-4. The script will be executed in the home folder of your remote machines. Some
-configuration files will be copied there. Modify you local configuration files
-in your home folder instead of the original conf file in the source code repo.
+Finally restore the process:
 
-5. My scripts couldn't properly remove the tmp file created by xtern. So if you
-find that client can't receive responses, try cleaning the tmp files first.
-Right now, they're 3 of them. 1 under your home folder. 2 in /dev/shm ahd /tmp.
+```bash
+./checkpoint-restore.sh restore httpd checkpoint-<replace_me_with_your_pid>.tar.gz
+```
 
-6. If you want to let server load some content and client query that content. You
-only need to change the content in client_cmd and server_cmd in run.sh. Make
-sure the content all put in your home folder.
+## For 3. 
+
+Just run: 
+
+```bash
+./run-eval-usleep.sh 
+```
+
+, and:
+
+```bash
+./run-eval-maxmin.sh
+```
+
+The script does everything for you. View your results in perf_log directory. 
+
+## For 4
+
+```bash
+./run.sh configs/new-mongoose.sh 
+```
+
+Grep the logs in $HOME/logs on servers for the timestamps. 
+
