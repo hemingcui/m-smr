@@ -19,7 +19,7 @@ Use `grab.py -b perf_log` to generate a detailed report of your run.
 
 You can config the servers and plans in the `run-all.sh` script. 
 
-## For 2.
+### For 2.
 
 First, start a server in lxc using `$MSMR_ROOT/eval-container/start-mg.sh`, say:
 
@@ -39,7 +39,7 @@ Finally restore the process:
 ./checkpoint-restore.sh restore httpd checkpoint-<replace_me_with_your_pid>.tar.gz
 ```
 
-## For 3. 
+### For 3. 
 
 Just run: 
 
@@ -55,7 +55,7 @@ Just run:
 
 The script does everything for you. View your results in perf_log directory. 
 
-## For 4
+### For 4
 
 ```bash
 ./run.sh configs/new-mongoose.sh 
