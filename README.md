@@ -7,7 +7,7 @@ Install depdendent libraries/tools. Use ubuntu 14.04 hardy, with amd64.
 ```
 sudo apt-get install build-essential
 sudo apt-get install libboost-dev git subversion nano libconfig-dev libevent-dev \
-	libsqlite3-dev libdb-dev libboost-system-dev autoconf m4 dejagnu flex bison axel zlib1g-dev \
+	sqlite3 libsqlite3-dev libdb-dev libboost-system-dev autoconf m4 dejagnu flex bison axel zlib1g-dev \
 	libbz2-dev libxml-libxml-perl python-pip python-setuptools python-dev libxslt1-dev libxml2-dev \
 	wget curl php5-cgi psmisc mencoder
 sudo pip install numpy
