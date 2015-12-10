@@ -3,7 +3,7 @@ m-smr
 
 Multi-threaded State Machine Replication
 
-Install depdendent libraries/tools. Use ubuntu 14.04 hardy, with amd64.
+Install depdendent libraries/tools. Use ubuntu 14.04 hardy, Boost version: 0.19b.b8, with amd64.
 ```
 sudo apt-get install build-essential
 sudo apt-get install libboost-dev git subversion nano libconfig-dev libevent-dev \
