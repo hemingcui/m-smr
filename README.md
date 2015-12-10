@@ -16,8 +16,8 @@ sudo pip install OutputCheck          (this utility is only required by the test
 
 * Set env vars in ~/.bashrc.
 ```
-export MSMR_ROOT=<...>
-export XTERN_ROOT=<...>
+export MSMR_ROOT=<...>     # where you put m-smr
+export XTERN_ROOT=<...>    # where you put xtern, a git submodule of m-smr
 export LD_LIBRARY_PATH=$MSMR_ROOT/libevent_paxos/.local/lib:$LD_LIBRARY_PATH
 ```
 
@@ -25,9 +25,7 @@ export LD_LIBRARY_PATH=$MSMR_ROOT/libevent_paxos/.local/lib:$LD_LIBRARY_PATH
 ```
 git clone https://github.com/hemingcui/m-smr
 cd $MSMR_ROOT
-git pull
-git submodule init
-git submodule update
+git submodule update --init --recursive
 ```
 
 Then,  you will have the latest xtern and libevent_paxos repo (submodules).
