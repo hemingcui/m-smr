@@ -45,6 +45,9 @@ mkdir obj
 cd obj
 ./../configure --prefix=$XTERN_ROOT/install
 make clean; make; make install
+cd $MSMR_ROOT/libevent_paxos
+./mk
+make clean; make  <PLEASE RUN MAKE CLEAN EVERYTIME>
 ```
 
 Note: for xtern, for everytime you pull the latest project from github,
@@ -52,9 +55,6 @@ please run:
 ```
 cd $XTERN_ROOT/obj
 make clean; make; make install     <PLEASE RUN MAKE CLEAN EVERYTIME>
-cd $MSMR_ROOT/libevent_paxos
-./mk
-make clean; make  <PLEASE RUN MAKE CLEAN EVERYTIME>
 ```
 
 * Install analysis tools.
