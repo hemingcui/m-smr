@@ -14,18 +14,17 @@ sudo pip install numpy
 sudo pip install OutputCheck          (this utility is only required by the testing framework)
 ```
 
+* Commands to checkout a brand-new project:
+```
+git clone https://github.com/hemingcui/m-smr
+cd m-smr
+```
+
 * Set env vars in ~/.bashrc.
 ```
 export MSMR_ROOT=<...>     # where you put m-smr
 export XTERN_ROOT=<...>    # where you put xtern, a git submodule of m-smr
 export LD_LIBRARY_PATH=$MSMR_ROOT/libevent_paxos/.local/lib:$LD_LIBRARY_PATH
-```
-
-* Commands to checkout a brand-new project:
-```
-git clone https://github.com/hemingcui/m-smr
-cd $MSMR_ROOT
-git submodule update --init --recursive
 ```
 
 Then,  you will have the latest xtern and libevent_paxos repo (submodules).
@@ -36,8 +35,7 @@ commands above.
 * Commands to get the latest project:
 ```
 cd $MSMR_ROOT
-git pull
-git submodule update
+git submodule update --init --recursive
 ```
 
 * Compile xtern and libevent_paxos.
